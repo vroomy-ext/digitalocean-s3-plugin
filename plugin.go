@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/gdbu/scribe"
 	"github.com/mojura/kiroku"
 	s3 "github.com/mojura/sync-s3"
 	"github.com/vroomy/vroomy"
@@ -20,11 +21,27 @@ func init() {
 type Plugin struct {
 	vroomy.BasePlugin
 
+	out    *scribe.Scribe
 	source kiroku.Source
 }
 
 // Load ensures Profiles Database is built and open for access
 func (p *Plugin) Load(env map[string]string) (err error) {
+	p.out = scribe.New("DigitalOcean S3")
+	switch env["mojura-sync-mode"] {
+	case "development":
+		p.out.Notification("Development mode enabled, disabling s3 DB syncing")
+		return
+	case "mirror":
+		p.out.Notification("Mirror mode enabled")
+	case "sync":
+		p.out.Notification("Sync mode enabled, enabling s3 DB syncing")
+
+	default:
+		err = fmt.Errorf("invalid mode, <%s> is not supported, available modes are development, mirror, and sync", env["mode"])
+		return
+	}
+
 	var opts s3.Options
 	opts.Key = env["s3-key"]
 	opts.Secret = env["s3-secret"]
