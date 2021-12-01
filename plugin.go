@@ -31,6 +31,7 @@ func (p *Plugin) Load(env map[string]string) (err error) {
 	switch env["mojura-sync-mode"] {
 	case "development":
 		p.out.Notification("Development mode enabled, disabling s3 DB syncing")
+		p.source = &kiroku.NOOP{}
 		return
 	case "mirror":
 		p.out.Notification("Mirror mode enabled")
