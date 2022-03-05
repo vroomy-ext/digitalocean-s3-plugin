@@ -26,7 +26,7 @@ type Plugin struct {
 }
 
 // Load ensures Profiles Database is built and open for access
-func (p *Plugin) Load(env map[string]string) (err error) {
+func (p *Plugin) Load(env vroomy.Environment) (err error) {
 	p.out = scribe.New("DigitalOcean S3")
 	switch env["mojura-sync-mode"] {
 	case "development":
