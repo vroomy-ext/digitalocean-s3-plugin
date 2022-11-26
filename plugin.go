@@ -1,6 +1,7 @@
 package plugin
 
 import (
+	"errors"
 	"fmt"
 	"log"
 
@@ -10,6 +11,15 @@ import (
 )
 
 var p Plugin
+
+var (
+	// ErrEmptyS3Key is returned when an s3 key is empty within the vroomy config
+	ErrEmptyS3Key = errors.New("invalid s3-key, cannot be empty")
+	// ErrEmptyS3Secret is returned when an s3 secret is empty within the vroomy config
+	ErrEmptyS3Secret = errors.New("invalid s3-secret, cannot be empty")
+	// ErrEmptyS3Env is returned when an s3 env is empty within the vroomy config
+	ErrEmptyS3Env = errors.New("invalid s3-env, cannot be empty")
+)
 
 func init() {
 	if err := vroomy.Register("mojura-source", &p); err != nil {
@@ -26,16 +36,28 @@ type Plugin struct {
 // Load ensures Profiles Database is built and open for access
 func (p *Plugin) Load(env vroomy.Environment) (err error) {
 	var opts s3.Options
-	opts.Key = env["s3-key"]
-	opts.Secret = env["s3-secret"]
-	opts.Bucket = env["s3-env"]
+	if opts.Key = env["s3-key"]; len(opts.Key) == 0 {
+		err = ErrEmptyS3Key
+		return
+	}
+
+	if opts.Secret = env["s3-secret"]; len(opts.Key) == 0 {
+		err = ErrEmptyS3Secret
+		return
+	}
+
+	if opts.Bucket = env["s3-env"]; len(opts.Key) == 0 {
+		err = ErrEmptyS3Env
+		return
+	}
+
 	// Region is always us-east-1 for Digital Ocean spaces.
 	opts.Region = "us-east-1"
 	// Region is set as endpoint for Digital Ocean spaces.
 	opts.Endpoint = fmt.Sprintf("https://%s.digitaloceanspaces.com", env["s3-region"])
 
 	if p.source, err = s3.New(opts); err != nil {
-		err = fmt.Errorf("error loading simple texting client: %v", err)
+		err = fmt.Errorf("error loading Digital Ocean s3 client: %v", err)
 		return
 	}
 
