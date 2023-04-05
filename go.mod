@@ -27,3 +27,5 @@ require (
 	github.com/vroomy/httpserve v0.8.1 // indirect
 	golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c // indirect
 )
+
+replace github.com/mojura/sync-s3 => ../../mojura/sync-s3
