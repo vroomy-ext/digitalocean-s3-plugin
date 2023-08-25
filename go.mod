@@ -3,8 +3,8 @@ module github.com/vroomy-ext/digitalocean-s3-plugin
 go 1.20
 
 require (
-	github.com/mojura/kiroku v0.12.1
-	github.com/mojura/sync-s3 v0.5.1
+	github.com/mojura/kiroku v0.12.2
+	github.com/mojura/sync-s3 v0.5.2
 	github.com/vroomy/vroomy v0.17.0
 )
 
