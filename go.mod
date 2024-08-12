@@ -3,9 +3,9 @@ module github.com/vroomy-ext/digitalocean-s3-plugin
 go 1.20
 
 require (
-	github.com/mojura/kiroku v0.12.2
-	github.com/mojura/sync-s3 v0.5.2
-	github.com/vroomy/vroomy v0.17.0
+	github.com/mojura/kiroku v0.12.11
+	github.com/mojura/sync-s3 v0.6.0
+	github.com/vroomy/vroomy v0.17.3
 )
 
 require (
@@ -22,11 +22,9 @@ require (
 	github.com/hatchify/errors v0.4.82 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/mojura/enkodo v0.5.7 // indirect
-	github.com/vroomy/httpserve v0.10.0 // indirect
-	golang.org/x/crypto v0.7.0 // indirect
-	golang.org/x/net v0.8.0 // indirect
-	golang.org/x/sys v0.6.0 // indirect
-	golang.org/x/text v0.8.0 // indirect
+	github.com/vroomy/httpserve v0.10.1 // indirect
+	golang.org/x/crypto v0.17.0 // indirect
+	golang.org/x/net v0.17.0 // indirect
+	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
 )
-
-replace github.com/mojura/sync-s3 => ../../mojura/sync-s3
