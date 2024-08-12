@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"strconv"
 
 	"github.com/mojura/kiroku"
 	s3 "github.com/mojura/sync-s3"
@@ -51,12 +52,19 @@ func (p *Plugin) Load(env vroomy.Environment) (err error) {
 		return
 	}
 
+	var maxRatePerSecond int64
+	if rate := env["s3-max-rate-per-second"]; len(rate) > 0 {
+		if maxRatePerSecond, err = strconv.ParseInt(rate, 10, 64); err != nil {
+			return
+		}
+	}
+
 	// Region is always us-east-1 for Digital Ocean spaces.
 	opts.Region = "us-east-1"
 	// Region is set as endpoint for Digital Ocean spaces.
 	opts.Endpoint = fmt.Sprintf("https://%s.digitaloceanspaces.com", env["s3-region"])
 	opts.AvoidBucketCreation = true
-
+	opts.MaxRatePerSecond = maxRatePerSecond
 	if p.source, err = s3.New(opts); err != nil {
 		err = fmt.Errorf("error loading Digital Ocean s3 client: %v", err)
 		return
