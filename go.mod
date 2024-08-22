@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/mojura/kiroku v0.12.11
-	github.com/mojura/sync-s3 v0.6.2
+	github.com/mojura/sync-s3 v0.7.0
 	github.com/vroomy/vroomy v0.17.3
 )
 
@@ -25,7 +25,7 @@ require (
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/mojura/enkodo v0.5.7 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
-	github.com/prometheus/client_golang v1.20.0 // indirect
+	github.com/prometheus/client_golang v1.20.1 // indirect
 	github.com/prometheus/client_model v0.6.1 // indirect
 	github.com/prometheus/common v0.55.0 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
