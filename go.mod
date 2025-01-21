@@ -4,7 +4,7 @@ go 1.23.0
 
 require (
 	github.com/mojura/kiroku v0.16.0
-	github.com/mojura/sync-s3 v0.9.0
+	github.com/mojura/sync-s3 v0.9.1
 	github.com/vroomy/vroomy v0.18.6
 )
 
